@@ -14,10 +14,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $age        = $_POST['age']        ?? '';
     $filiere    = $_POST['filiere']    ?? '';
     $motivation = $_POST['motivation'] ?? '';
-    
+
     $reglement = isset($_POST['reglement']); // true si cochée, false sinon
-    
-    var_dump($_POST);
+
+    // Validation du prénom
+    if (empty($prenom)) {
+        $erreurs[] = "Le prénom est obligatoire.";
+    }
+
+    // Validation du nom
+    if (empty($nom)) {
+        $erreurs[] = "Le nom est obligatoire.";
+    }
+
+    // Validation de l'email
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $erreurs[] = "L'adresse email est invalide.";
+    }
+
+    // Validation de l'âge
+    if (!is_numeric($age) || $age < 16 || $age > 30) {
+        $erreurs[] = "L'âge doit être un nombre entre 16 et 30.";
+    }
+
+    // Validation de la filière
+    if (empty($filiere)) {
+        $erreurs[] = "Veuillez choisir une filière.";
+    }
+
+    // Validation de la motivation
+    if (strlen($motivation) < 30) {
+        $erreurs[] = "La motivation doit contenir au moins 30 caractères.";
+    }
+
+    // Validation du règlement
+    if (!$reglement) {
+        $erreurs[] = "Vous devez accepter le règlement.";
+    }
+
+    // Test temporaire pour vérifier les erreurs
+    var_dump($erreurs);
 }
 ?>
 <!DOCTYPE html>
