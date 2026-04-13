@@ -52,8 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreurs[] = "Vous devez accepter le règlement.";
     }
 
-    // Test temporaire pour vérifier les erreurs
-    var_dump($erreurs);
+
 }
 ?>
 <!DOCTYPE html>
@@ -66,6 +65,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <?php if (!empty($erreurs)): ?>
+        <ul class="erreurs">
+            <?php foreach ($erreurs as $e): ?>
+                <li><?php echo $e; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
     <form action="candidature.php" method="POST">
         <label for="prenom">Prénom :</label>
         <input type="text" name="prenom" id="prenom">
